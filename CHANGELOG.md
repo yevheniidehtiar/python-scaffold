@@ -1,3 +1,14 @@
+## v1.3.0 (2025-03-08)
+
+### Feat
+
+- list environment variables in workflow definition (#294)
+- select uv as commitizen's version provider (#293)
+
+### Fix
+
+- set default shell to bash (#296)
+
 ## v1.2.0 (2025-02-24)
 
 ### Feat
