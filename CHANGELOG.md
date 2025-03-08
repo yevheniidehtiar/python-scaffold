@@ -1,3 +1,9 @@
+## v1.3.2 (2025-03-08)
+
+### Fix
+
+- git ignore uv.lock for packages (#298)
+
 ## v1.3.1 (2025-03-08)
 
 ### Fix
