@@ -1,3 +1,9 @@
+## v1.3.3 (2025-03-08)
+
+### Fix
+
+- mark .gitignore as templated (#299)
+
 ## v1.3.2 (2025-03-08)
 
 ### Fix
