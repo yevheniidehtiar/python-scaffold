@@ -1,3 +1,9 @@
+## v1.3.1 (2025-03-08)
+
+### Fix
+
+- fix resolution strategy selection (#297)
+
 ## v1.3.0 (2025-03-08)
 
 ### Feat
