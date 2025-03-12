@@ -1,3 +1,9 @@
+## v1.4.0 (2025-03-12)
+
+### Feat
+
+- simplify publishing to PyPI from GitHub Actions (#300)
+
 ## v1.3.3 (2025-03-08)
 
 ### Fix
