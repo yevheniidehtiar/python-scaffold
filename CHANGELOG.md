@@ -1,3 +1,9 @@
+## v1.4.1 (2025-03-12)
+
+### Fix
+
+- add missing permission for trusted publishing (#301)
+
 ## v1.4.0 (2025-03-12)
 
 ### Feat
