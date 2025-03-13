@@ -1,3 +1,9 @@
+## v1.5.0 (2025-03-13)
+
+### Feat
+
+- upgrade to a more modern build system (#302)
+
 ## v1.4.1 (2025-03-12)
 
 ### Fix
