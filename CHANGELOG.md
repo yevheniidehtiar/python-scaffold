@@ -1,3 +1,10 @@
+## v1.5.1 (2025-03-13)
+
+### Fix
+
+- close prerequisites details (#306)
+- update deprecated codesearch flag (#305)
+
 ## v1.5.0 (2025-03-13)
 
 ### Feat
