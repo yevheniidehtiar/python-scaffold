@@ -50,6 +50,8 @@ dev = [
   "ipywidgets (>=8.1.2)",
   "mypy (>=1.14.1)",
   "pdoc (>=15.0.1)",
+  "pip-audit (>=2.7.3)",
+  "pip-licenses (>=4.3.5)",
   "playwright (>=1.46.0)",
   {%- if project_type == 'package' %}
   "poethepoet (>=0.32.1)",
@@ -227,11 +229,22 @@ type = "simple"
 
   [tool.poe.tasks.lint]
   help = "Lint this {{ project_type }}"
-  cmd = """
-    pre-commit run
-      --all-files
-      --color always
-    """
+  cmd = "pre-commit run --all-files --color always"
+
+  [tool.poe.tasks.security-check]
+  help = "Run security checks"
+  sequence = [
+    { cmd = "poe license-check" },
+    { cmd = "poe vulnerability-check" },
+  ]
+
+  [tool.poe.tasks.vulnerability-check]
+  help = "Check this {{ project_type }}'s dependencies for vulnerabilities"
+  cmd = "pip-audit --format markdown"
+
+  [tool.poe.tasks.license-check]
+  help = "Check this {{ project_type }}'s dependencies for license issues"
+  cmd = "pip-licenses --format=markdown"
 
   [tool.poe.tasks.test]
   help = "Test this {{ project_type }}"
