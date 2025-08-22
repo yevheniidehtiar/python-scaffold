@@ -1,0 +1,78 @@
+# AI Agent Guidelines
+
+Welcome, agent! This document provides guidelines for working on this project.
+
+This project is a Python `{{ project_type }}` generated from a template. It is configured with a `{{ development_environment }}` development environment.
+
+## Project Structure
+
+The main source code for this project is located in the `src/{{ project_name_snake_case }}` directory. Tests are in the `tests/` directory.
+
+## Dependency Management
+
+This project uses `uv` for dependency management. Dependencies are defined in `pyproject.toml`.
+
+To install all dependencies, including development dependencies, run:
+
+```bash
+uv pip install -e .[dev]
+```
+
+## Task Runner: Poe the Poet
+
+This project uses `poethepoet` as a task runner. You can see the available tasks in the `[tool.poe.tasks]` section of `pyproject.toml`.
+
+To run a task, use `poe <task_name>`. For example, `poe lint`.
+
+## Linting
+
+To run the linter and code formatter, use the `lint` task:
+
+```bash
+poe lint
+```
+
+This will run `pre-commit`, which is configured in `.pre-commit-config.yaml` to use tools like `ruff` and `mypy`. Please make sure all code passes the linting checks before submitting.
+
+## Testing
+
+To run the test suite, use the `test` task:
+
+```bash
+poe test
+```
+
+This will run `pytest` with `coverage` and generate reports in the `reports/` directory. All tests must pass before submitting your changes.
+
+{% if with_fastapi_api %}
+## Running the API Server
+
+This project includes a FastAPI application. To run it in development mode (with hot-reloading), use the `serve` task:
+
+```bash
+poe serve --dev
+```
+
+The API will be available at `http://0.0.0.0:8000`. The API source code is in `src/{{ project_name_snake_case }}/api.py`.
+{% endif %}
+
+{% if with_typer_cli %}
+## Running the CLI
+
+This project includes a command-line interface (CLI) built with Typer.
+
+Once you have installed the dependencies, the CLI is available as a command:
+
+```bash
+{{ project_name_kebab_case }} --help
+```
+
+The CLI source code is in `src/{{ project_name_snake_case }}/cli.py`.
+{% endif %}
+
+## Submitting Changes
+{% if with_conventional_commits %}
+This project follows the Conventional Commits specification. When you are ready to submit your work, please use `cz bump` to create a compliant commit message.
+{% else %}
+When you submit your work, please write a clear and descriptive commit message.
+{% endif %}
