@@ -50,11 +50,14 @@ dev = [
   "ipywidgets (>=8.1.2)",
   "mypy (>=1.14.1)",
   "pdoc (>=15.0.1)",
+  "playwright (>=1.46.0)",
   {%- if project_type == 'package' %}
   "poethepoet (>=0.32.1)",
   {%- endif %}
   "pre-commit (>=4.0.1)",
   "pytest (>=8.3.4)",
+  "pytest-cov (>=5.0.0)",
+  "pytest-playwright (>=0.5.1)",
   "pytest-mock (>=3.14.0)",
   "pytest-xdist (>=3.6.1)",
   "ruff (>=0.9.2)",
@@ -78,12 +81,6 @@ fail_under = 50
 precision = 1
 show_missing = true
 skip_covered = true
-
-[tool.coverage.run]  # https://coverage.readthedocs.io/en/latest/config.html#run
-branch = true
-command_line = "--module pytest"
-data_file = "reports/.coverage"
-source = ["src"]
 
 [tool.coverage.xml]  # https://coverage.readthedocs.io/en/latest/config.html#xml
 output = "reports/coverage.xml"
@@ -114,7 +111,7 @@ warn_untyped_fields = true
 {%- endif %}
 
 [tool.pytest.ini_options]  # https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref
-addopts = "--color=yes --doctest-modules --exitfirst --failed-first{% if typing == 'strict' %} --strict-config --strict-markers{% endif %} --verbosity=2 --junitxml=reports/pytest.xml"
+addopts = "--color=yes --doctest-modules --exitfirst --failed-first{% if typing == 'strict' %} --strict-config --strict-markers{% endif %} --verbosity=2 --junitxml=reports/pytest.xml --cov=src --cov-report=term-missing --cov-report=xml:reports/coverage.xml"
 {%- if typing == 'strict' %}
 filterwarnings = ["error", "ignore::DeprecationWarning"]
 {%- endif %}
@@ -238,12 +235,11 @@ type = "simple"
 
   [tool.poe.tasks.test]
   help = "Test this {{ project_type }}"
+  cmd = "pytest"
 
-    [[tool.poe.tasks.test.sequence]]
-    cmd = "coverage run"
-
-    [[tool.poe.tasks.test.sequence]]
-    cmd = "coverage report"
-
-    [[tool.poe.tasks.test.sequence]]
-    cmd = "coverage xml"
+  [tool.poe.tasks."test:e2e"]
+  help = "Run end-to-end tests with Playwright"
+  sequence = [
+    { shell = "playwright install --with-deps" },
+    { cmd = "pytest tests/e2e" },
+  ]
